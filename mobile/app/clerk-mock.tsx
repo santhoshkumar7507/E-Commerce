@@ -9,3 +9,7 @@ export const useUser = () => ({
     imageUrl: "https://ui-avatars.com/api/?name=Admin&background=random" 
   } 
 });
+
+export const useSSO = () => ({
+  startSSOFlow: async () => ({ createdSessionId: "mock_session" }),
+});

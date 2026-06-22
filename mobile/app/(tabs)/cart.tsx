@@ -3,7 +3,7 @@ import { useAddresses } from "@/hooks/useAddressess";
 import useCart from "@/hooks/useCart";
 import { useApi } from "@/lib/api";
 import { ActivityIndicator, Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { useStripe } from "@stripe/stripe-react-native";
+import { useStripe } from "../stripe-mock";
 import { useState } from "react";
 import { Address } from "@/types";
 import { Ionicons } from "@expo/vector-icons";

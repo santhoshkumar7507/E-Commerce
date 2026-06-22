@@ -5,7 +5,7 @@ import { ClerkProvider } from "./clerk-mock";
 // mock tokenCache
 export const tokenCache = { getToken: () => null, saveToken: () => null };
 import * as Sentry from "@sentry/react-native";
-import { StripeProvider } from "@stripe/stripe-react-native";
+import { StripeProvider } from "./stripe-mock";
 
 Sentry.init({
   dsn: "https://fb6731b90610cc08333e6c16ffac5724@o4509813037137920.ingest.de.sentry.io/4510451611205712",

@@ -1,4 +1,4 @@
-import { useSSO } from "@clerk/clerk-expo";
+import { useSSO } from "../app/clerk-mock";
 import { useState } from "react";
 import { Alert } from "react-native";
 
