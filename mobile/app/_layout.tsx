@@ -1,8 +1,9 @@
 import { Stack } from "expo-router";
 import "../global.css";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ClerkProvider } from "@clerk/clerk-expo";
-import { tokenCache } from "@clerk/clerk-expo/token-cache";
+import { ClerkProvider } from "./clerk-mock";
+// mock tokenCache
+export const tokenCache = { getToken: () => null, saveToken: () => null };
 import * as Sentry from "@sentry/react-native";
 import { StripeProvider } from "@stripe/stripe-react-native";
 

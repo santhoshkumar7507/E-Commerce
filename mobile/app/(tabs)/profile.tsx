@@ -1,5 +1,5 @@
 import SafeScreen from "@/components/SafeScreen";
-import { useAuth, useUser } from "@clerk/clerk-expo";
+import { useAuth, useUser } from "../clerk-mock";
 
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
