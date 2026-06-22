@@ -36,7 +36,11 @@ app.use(
 );
 
 app.use(express.json());
-app.use(clerkMiddleware()); // adds auth object under the req => req.auth
+// Bypass Clerk Middleware to inject a mock user
+app.use((req, res, next) => {
+  req.auth = () => ({ userId: "mock_admin_123" });
+  next();
+});
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true })); // credentials: true allows the browser to send the cookies to the server with the request
 
 app.use("/api/inngest", serve({ client: inngest, functions }));
@@ -63,8 +67,40 @@ if (ENV.NODE_ENV === "production") {
 
 const startServer = async () => {
   await connectDB();
+  
+  if (ENV.DB_URL.includes("placeholder") || ENV.DB_URL.includes("localhost:27017")) {
+    const { Product } = await import("./models/product.model.js");
+    const count = await Product.countDocuments();
+    if (count === 0) {
+      console.log("Seeding local database...");
+      await Product.insertMany([
+        {
+          name: "Wireless Bluetooth Headphones",
+          description: "Premium over-ear headphones.",
+          price: 149.99,
+          stock: 50,
+          category: "Electronics",
+          images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500"],
+          averageRating: 4.5,
+          totalReviews: 128,
+        },
+        {
+          name: "Classic Denim Jacket",
+          description: "Timeless denim jacket.",
+          price: 69.99,
+          stock: 40,
+          category: "Fashion",
+          images: ["https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500"],
+          averageRating: 4.2,
+          totalReviews: 95,
+        }
+      ]);
+      console.log("Database seeded successfully.");
+    }
+  }
+
   app.listen(ENV.PORT, () => {
-    console.log("Server is up and running");
+    console.log("Server is up and running on port " + ENV.PORT);
   });
 };
 
